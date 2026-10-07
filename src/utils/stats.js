@@ -13,7 +13,10 @@ const DEFAULT_STATS = {
 
 export const ACHIEVEMENT_DEFS = [
   { id: 'first_play', title: 'First Launch', desc: 'Play your first game', icon: '🚀', check: (s) => s.gamesPlayed >= 1 },
-  { id: 'explorer', title: 'Game Explorer', desc: 'Try all 5 arcade games', icon: '🗺️', check: (s) => s.gamesTried.length >= 5 },
+  { id: 'explorer', title: 'Game Explorer', desc: 'Try at least 5 different arcade games', icon: '🗺️', check: (s) => s.gamesTried.length >= 5 },
+  { id: 'all_star', title: 'All-Star Collector', desc: 'Try all 7 games in the universe', icon: '🌟', check: (s) => s.gamesTried.length >= 7 },
+  { id: 'vice_king', title: 'Vice Kingpin', desc: 'Rule Vice City with a high score of $1,000+', icon: '🌴', check: (s) => (s.highScores?.viceCity || 0) >= 1000 },
+  { id: 'speed_drifter', title: 'Midnight Drifter', desc: 'Score 1,000+ points in Neon Racer', icon: '🏎️', check: (s) => (s.highScores?.cyberRacer || 0) >= 1000 },
   { id: 'marathon', title: 'Marathon Gamer', desc: 'Play 10 game sessions', icon: '🏃', check: (s) => s.gamesPlayed >= 10 },
   { id: 'streak_3', title: 'On Fire', desc: '3-day play streak', icon: '🔥', check: (s) => s.streakDays >= 3 },
   { id: 'streak_7', title: 'Dedicated', desc: '7-day play streak', icon: '💎', check: (s) => s.streakDays >= 7 },
@@ -120,7 +123,7 @@ export const checkAndUnlockAchievements = (highScores = {}) => {
   const totalHighScore = Object.values(highScores).reduce((a, b) => a + (b || 0), 0);
   const hasHighScore = Object.values(highScores).some((s) => s > 0);
 
-  const context = { ...stats, totalHighScore, hasHighScore };
+  const context = { ...stats, totalHighScore, hasHighScore, highScores };
   const unlocked = getUnlockedAchievements();
   const newlyUnlocked = [];
 

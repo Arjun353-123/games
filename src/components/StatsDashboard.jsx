@@ -10,7 +10,7 @@ export default function StatsDashboard({ stats, highScores, isKidsMode, isNoirMo
     { icon: Gamepad2, label: 'Sessions', value: stats.gamesPlayed || 0, color: 'cyan' },
     { icon: Trophy, label: 'Total Score', value: totalScore, color: 'amber' },
     { icon: Flame, label: 'Day Streak', value: stats.streakDays || 0, color: 'rose' },
-    { icon: Target, label: 'Games Tried', value: `${gamesExplored}/5`, color: 'emerald' },
+    { icon: Target, label: 'Games Tried', value: `${gamesExplored}/7`, color: 'emerald' },
     { icon: Clock, label: 'Play Time', value: `${stats.totalPlayMinutes || 0}m`, color: 'purple' },
   ];
 

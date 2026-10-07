@@ -10,9 +10,11 @@ export const getHighScores = () => {
       ticTacToeWins: 0,
       cyberBird: 0,
       brickBreaker: 0,
+      viceCity: 0,
+      cyberRacer: 0,
     };
   } catch (e) {
-    return { templeRun: 0, snake: 0, ticTacToeWins: 0, cyberBird: 0, brickBreaker: 0 };
+    return { templeRun: 0, snake: 0, ticTacToeWins: 0, cyberBird: 0, brickBreaker: 0, viceCity: 0, cyberRacer: 0 };
   }
 };
 

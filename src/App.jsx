@@ -12,6 +12,8 @@ import Snake3D from './games/Snake3D';
 import TicTacToe3D from './games/TicTacToe3D';
 import CyberBird from './games/CyberBird';
 import BrickBreaker from './games/BrickBreaker';
+import ViceCity3D from './games/ViceCity3D';
+import CyberRacer3D from './games/CyberRacer3D';
 import { soundFx } from './utils/audio';
 import { getHighScores, getSettings, saveSettings } from './utils/storage';
 import {
@@ -25,12 +27,34 @@ import {
 
 const CATEGORIES = [
   { id: 'all', label: 'All Games' },
-  { id: '3d', label: '3D' },
+  { id: 'openWorld', label: 'Open World' },
+  { id: 'racing', label: 'Racing' },
+  { id: '3d', label: '3D Action' },
   { id: 'arcade', label: 'Arcade' },
   { id: 'multiplayer', label: 'Multiplayer' },
 ];
 
 const GAME_CARDS = [
+  {
+    id: 'viceCity',
+    title: 'VICE CITY 1986: 3D OPEN WORLD',
+    badge: '3D OPEN WORLD',
+    category: 'openWorld',
+    popular: true,
+    description: 'Miami 1986 open world! Hijack supercars, police cruisers & military tanks, evade 5-star police chases, complete missions, and blast heavy weapons with 80s synth radio!',
+    icon: '🌴',
+    scoreKey: 'viceCity',
+  },
+  {
+    id: 'cyberRacer',
+    title: 'NEON RACER 3D: SUPER DRIFT',
+    badge: 'SYNTH RACER',
+    category: 'racing',
+    popular: true,
+    description: 'High-speed synthwave highway racing! Dodge traffic, trigger nitrous boost, drift through neon tracks, and chase high scores into the retro sunset.',
+    icon: '🏎️',
+    scoreKey: 'cyberRacer',
+  },
   {
     id: 'templeRun',
     title: 'TEMPLE RUNNER 3D',
@@ -46,7 +70,7 @@ const GAME_CARDS = [
     title: 'CYBER SNAKE 3D',
     badge: 'RETRO 3D',
     category: '3d',
-    popular: true,
+    popular: false,
     description: 'Navigate a glowing 3D cyber grid, eat power apples & stars, avoid laser walls!',
     icon: '🐍',
     scoreKey: 'snake',
@@ -85,6 +109,8 @@ const GAME_CARDS = [
 
 function getGradient(gameId, isKidsMode, isNoirMode) {
   const map = {
+    viceCity: isKidsMode ? 'from-pink-400 to-cyan-400' : isNoirMode ? 'from-zinc-100 to-neutral-400 text-black' : 'from-fuchsia-600 via-pink-500 to-cyan-400',
+    cyberRacer: isKidsMode ? 'from-amber-400 to-orange-500' : isNoirMode ? 'from-zinc-200 to-neutral-300 text-black' : 'from-cyan-500 to-blue-600',
     templeRun: isKidsMode ? 'from-rose-500 to-amber-500' : isNoirMode ? 'from-zinc-100 to-neutral-300 text-black' : 'from-blue-600 to-cyan-500',
     snake: isKidsMode ? 'from-amber-400 to-emerald-500' : isNoirMode ? 'from-neutral-200 to-zinc-400 text-black' : 'from-emerald-500 to-teal-600',
     ox: isKidsMode ? 'from-purple-500 to-pink-500' : isNoirMode ? 'from-zinc-300 to-neutral-100 text-black' : 'from-purple-600 to-pink-600',
@@ -269,6 +295,8 @@ export default function App() {
       />
 
       {/* Active Games */}
+      {activeGame === 'viceCity' && <ViceCity3D isKidsMode={isKidsMode} highScore={highScores.viceCity} onBackToMenu={handleBackToMenu} />}
+      {activeGame === 'cyberRacer' && <CyberRacer3D isKidsMode={isKidsMode} highScore={highScores.cyberRacer} onBackToMenu={handleBackToMenu} />}
       {activeGame === 'templeRun' && <TempleRunner3D isKidsMode={isKidsMode} highScore={highScores.templeRun} onBackToMenu={handleBackToMenu} />}
       {activeGame === 'snake' && <Snake3D isKidsMode={isKidsMode} highScore={highScores.snake} onBackToMenu={handleBackToMenu} />}
       {activeGame === 'ox' && <TicTacToe3D isKidsMode={isKidsMode} highScore={highScores.ticTacToeWins} onBackToMenu={handleBackToMenu} />}
@@ -301,7 +329,7 @@ export default function App() {
             </h1>
 
             <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-              Five premium 3D arcade experiences with achievements, stats tracking, and stunning visual themes.
+              Seven premium 3D arcade & open-world experiences with achievements, stats tracking, and stunning visual themes.
             </p>
           </motion.div>
 
