@@ -20,7 +20,6 @@ const GAMES = [
   { id: 'ox', name: 'Neon OX', icon: '❌', desc: 'Tic-tac-toe with AI', component: 'TicTacToe3D' },
   { id: 'bird', name: 'Flappy Bird', icon: '🐦', desc: 'Tap to fly arcade game', component: 'CyberBird' },
   { id: 'breaker', name: 'Brick Breaker', icon: '🧱', desc: 'Paddle ball brick smasher', component: 'BrickBreaker' },
-  { id: 'cyber', name: 'Cyber Bird 2', icon: '🎮', desc: 'Enhanced flappy mechanics', component: 'CyberBird' },
 ];
 
 function LoginPage({ onLogin }) {
@@ -51,7 +50,7 @@ function LoginPage({ onLogin }) {
             <Gamepad2 className="w-10 h-10 text-black" />
           </div>
           <h1 className="text-3xl font-black text-black mb-2">KIBORI GAMING</h1>
-          <p className="text-black">Sign in to access 8 amazing games</p>
+          <p className="text-black">Sign in to access 7 amazing games</p>
         </div>
 
         {/* Login Form */}
@@ -188,7 +187,7 @@ function MainApp({ username, onLogout }) {
           </div>
           <div className="flex items-center gap-3">
             <span className="px-3 py-1 bg-white border-2 border-black rounded-md text-xs font-semibold text-black">
-              8 GAMES
+              7 GAMES
             </span>
             <button
               onClick={onLogout}
@@ -274,7 +273,7 @@ function MainApp({ username, onLogout }) {
         {/* Feature Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
-            { icon: <Gamepad2 className="w-6 h-6" />, label: '8 Games' },
+            { icon: <Gamepad2 className="w-6 h-6" />, label: '7 Games' },
             { icon: <Globe className="w-6 h-6" />, label: 'WebGL 3D' },
             { icon: <Zap className="w-6 h-6" />, label: 'Real-time Physics' },
             { icon: <Trophy className="w-6 h-6" />, label: 'High Scores' },
