@@ -1,0 +1,153 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Gamepad2, ExternalLink, X, Trophy, Globe, Zap } from 'lucide-react';
+
+const GAMES = [
+  { id: 'vice', name: 'Vice City 3D', icon: '🌴' },
+  { id: 'racer', name: 'Neon Racer', icon: '🏎️' },
+  { id: 'temple', name: 'Temple Runner', icon: '🏃' },
+  { id: 'snake', name: 'Cyber Snake', icon: '🐍' },
+  { id: 'ox', name: 'Neon OX', icon: '❌' },
+  { id: 'bird', name: 'Flappy Bird', icon: '🐦' },
+  { id: 'breaker', name: 'Brick Breaker', icon: '🧱' },
+  { id: 'cyber', name: 'Cyber Bird', icon: '🎮' },
+];
+
+export default function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg border-2 border-cyan-500 flex items-center justify-center">
+              <Gamepad2 className="w-5 h-5 text-cyan-500" />
+            </div>
+            <div>
+              <span className="text-sm font-bold text-gray-900 tracking-wide">KIBORI — 3D CYBER ARENA</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="px-3 py-1 bg-cyan-50 border border-cyan-200 rounded-md text-xs font-semibold text-cyan-600">
+              FEATURED GAMES
+            </span>
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 transition-colors flex items-center gap-2"
+            >
+              <X className="w-4 h-4" />
+              Close
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        {/* Hero Section */}
+        <div className="text-center mb-12 space-y-6">
+          {/* Icon */}
+          <div className="w-24 h-24 mx-auto rounded-2xl bg-cyan-50 border-2 border-cyan-200 flex items-center justify-center">
+            <Gamepad2 className="w-12 h-12 text-cyan-500" />
+          </div>
+
+          {/* Title */}
+          <div className="space-y-3">
+            <h1 className="text-5xl font-black text-gray-900 tracking-tight">
+              KIBORI GAMING UNIVERSE
+            </h1>
+            <p className="text-xl text-gray-600 font-medium">
+              8 Interactive 3D Gaming Experiences
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            Experience cinematic 3D environments with real-time WebGL rendering, physics-based gameplay, 
+            and immersive cyber aesthetics across multiple gaming genres.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex justify-center gap-4 pt-4">
+            <button className="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-all flex items-center gap-2 shadow-sm">
+              <ExternalLink className="w-5 h-5" />
+              Launch Full 3D Arena
+            </button>
+            <button className="px-6 py-3 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-900 font-semibold rounded-lg transition-all flex items-center gap-2">
+              <Gamepad2 className="w-5 h-5" />
+              Browse Games
+            </button>
+          </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {[
+            { icon: <Gamepad2 className="w-6 h-6" />, label: '8 Games', color: 'text-purple-500', bg: 'bg-purple-50', border: 'border-purple-200' },
+            { icon: <Globe className="w-6 h-6" />, label: 'WebGL 3D', color: 'text-cyan-500', bg: 'bg-cyan-50', border: 'border-cyan-200' },
+            { icon: <Zap className="w-6 h-6" />, label: 'Real-time Physics', color: 'text-yellow-500', bg: 'bg-yellow-50', border: 'border-yellow-200' },
+            { icon: <Trophy className="w-6 h-6" />, label: 'High Scores', color: 'text-orange-500', bg: 'bg-orange-50', border: 'border-orange-200' },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className={`p-6 ${item.bg} border ${item.border} rounded-xl text-center hover:shadow-md transition-all`}
+            >
+              <div className={`${item.color} mb-3 flex justify-center`}>
+                {item.icon}
+              </div>
+              <div className="text-sm font-semibold text-gray-900">{item.label}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Available Games Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1" />
+            <span className="px-4 py-1 bg-cyan-50 border border-cyan-200 rounded-full text-xs font-bold text-cyan-600 tracking-wider">
+              ⚡ AVAILABLE GAMES
+            </span>
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1" />
+          </div>
+
+          {/* Games Pills */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {GAMES.map((game) => (
+              <button
+                key={game.id}
+                className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-cyan-300 rounded-lg text-sm font-medium text-gray-700 hover:text-gray-900 transition-all flex items-center gap-2"
+              >
+                <span>{game.icon}</span>
+                <span>{game.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Back to Menu */}
+        <div className="text-center">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-900 font-medium rounded-lg transition-all"
+          >
+            <Gamepad2 className="w-5 h-5" />
+            Return to Main Menu
+          </a>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-200 mt-16">
+        <div className="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-gray-500">
+          <p className="font-semibold text-gray-700">KIBORI · 3D CYBER ARCADE & GAMING UNIVERSE</p>
+          <p className="mt-1">Built with React, Three.js & Tailwind CSS</p>
+        </div>
+      </footer>
+    </div>
+  );
+}

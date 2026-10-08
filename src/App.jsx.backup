@@ -14,10 +14,8 @@ import CyberBird from './games/CyberBird';
 import BrickBreaker from './games/BrickBreaker';
 import ViceCity3D from './games/ViceCity3D';
 import CyberRacer3D from './games/CyberRacer3D';
-// import KiboriSceneModal from './components/KiboriScene';
-import KiboriSceneModal from './components/KiboriScene-Safe';
-// import KiboriWorkshopShowcase from './components/KiboriWorkshopShowcase';
-import KiboriWorkshopShowcase from './components/KiboriWorkshopShowcase-Safe';
+import KiboriSceneModal from './components/KiboriScene';
+import KiboriWorkshopShowcase from './components/KiboriWorkshopShowcase';
 import { soundFx } from './utils/audio';
 import { getHighScores, getSettings, saveSettings } from './utils/storage';
 import {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Trophy, Sparkles, Maximize, Flame, Moon, Settings, Award } from 'lucide-react';
+import { Volume2, VolumeX, Trophy, Sparkles, Maximize, Flame, Moon, Settings, Award, Gamepad2 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import Logo from './Logo';
 
