@@ -12,9 +12,10 @@ export const getHighScores = () => {
       brickBreaker: 0,
       viceCity: 0,
       cyberRacer: 0,
+      kibori: 0,
     };
   } catch (e) {
-    return { templeRun: 0, snake: 0, ticTacToeWins: 0, cyberBird: 0, brickBreaker: 0, viceCity: 0, cyberRacer: 0 };
+    return { templeRun: 0, snake: 0, ticTacToeWins: 0, cyberBird: 0, brickBreaker: 0, viceCity: 0, cyberRacer: 0, kibori: 0 };
   }
 };
 
@@ -35,17 +36,22 @@ export const saveHighScore = (game, score) => {
 export const getSettings = () => {
   try {
     const data = localStorage.getItem(SETTINGS_KEY);
-    return data ? JSON.parse(data) : {
-      mode: 'college',
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (parsed.mode === 'college') parsed.mode = 'kibori';
+      return parsed;
+    }
+    return {
+      mode: 'kibori',
       sound: true,
       bgm: true,
-      bgType: '3d-particles',
+      bgType: 'kibori',
       touchControls: false,
       reduceMotion: false,
       cardGlow: true,
     };
   } catch (e) {
-    return { mode: 'college', sound: true, bgm: true, bgType: '3d-particles', touchControls: false, reduceMotion: false, cardGlow: true };
+    return { mode: 'kibori', sound: true, bgm: true, bgType: 'kibori', touchControls: false, reduceMotion: false, cardGlow: true };
   }
 };
 

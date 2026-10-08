@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KIBORI — Sign In</title>
+<meta name="description" content="Sign in to KIBORI — 3D Cyber Gaming Universe and interactive arcade realms.">
+<meta name="theme-color" content="#0a0806">
+<meta name="color-scheme" content="dark">
+<style>html{background:#000}</style>
+<style>
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/d0014821252a8a770bf7551641572f239a8ede83d75652d84fef0c3627751baf.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/5a51946dfffa82972bc98745359c46761515641fda557c25116459a9f83da4a7.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/290e6267dd833bf5f899eba4c29ad0a9b09dbe53f6075b18af38057159e1ff20.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/6744a7f509ebc6ab220a6cd4ea77e898adf014f03d88dcda5d45d8a9feefb4e9.woff2) format('woff2');
+  unicode-range: U+0100-02BA;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Shippori Mincho';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://ublctyddhtbgaersvxxb.supabase.co/storage/v1/object/public/threeui-media/scene-images/kibori/3fdae1011669e390ea55e782040804de1778292af1471d6fabc72533bdfbfe2b.woff2) format('woff2');
+}
+</style>
+<style>
+  :root {
+    --ink: #f2ece2;
+    --dim: rgba(242,236,226,.62);
+    --hair: rgba(242,236,226,.16);
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --ember: #c8611a;
+    --ember-dim: rgba(200,97,26,.18);
+    --paper: #eae0cc;
+    --paper-dark: #272219;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; font-weight:normal; }
+  html, body { height:100%; }
+  html { scrollbar-width:none; }
+  html::-webkit-scrollbar { display:none; }
+  body {
+    background:#0a0806;
+    color:var(--ink);
+    font-family:var(--sans);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ——— Background canvas for fire particles ——— */
+  #bg-canvas {
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ——— Ambient wood grain texture overlay ——— */
+  .grain {
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size:400px 400px;
+  }
+
+  /* ——— Radial ember glow behind the card ——— */
+  .glow {
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:
+      radial-gradient(55% 45% at 50% 55%, rgba(160,70,20,.18), rgba(0,0,0,0) 70%),
+      radial-gradient(80% 60% at 50% 100%, rgba(80,28,8,.28), rgba(0,0,0,0) 60%);
+  }
+
+  /* ——— Shoji-grid ambient lines ——— */
+  .shoji {
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:.04;
+    background-image:
+      linear-gradient(rgba(242,236,226,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,236,226,1) 1px, transparent 1px);
+    background-size:80px 80px;
+  }
+
+  /* ——— Top bar ——— */
+  .bar {
+    position:fixed;
+    top:0;left:0;right:0;
+    height:58px;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    padding:0 32px;
+    gap:16px;
+  }
+  .bar::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(rgba(9,7,5,.72), rgba(9,7,5,.30) 60%, rgba(9,7,5,0));
+    pointer-events:none;
+  }
+  .bar .brand {
+    font-family:var(--serif);
+    font-size:18px;
+    letter-spacing:.01em;
+    color:var(--ink);
+    text-decoration:none;
+    position:relative;
+  }
+  .bar .brand i {
+    font-style:normal;
+    font-family:var(--mincho);
+    font-size:14px;
+    margin-left:10px;
+    opacity:.72;
+    letter-spacing:.06em;
+  }
+  .bar .right {
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--dim);
+    position:relative;
+  }
+  .bar .right a {
+    color:inherit;
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .bar .right a:hover { color:var(--ink); }
+
+  /* ——— Main layout ——— */
+  .stage {
+    position:relative;
+    z-index:5;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:80px 20px 60px;
+  }
+
+  /* ——— Login card ——— */
+  .card {
+    width:100%;
+    max-width:420px;
+    background:rgba(18,13,9,.82);
+    border:1px solid rgba(242,236,226,.10);
+    border-radius:4px;
+    box-shadow:
+      0 0 0 1px rgba(200,97,26,.06),
+      0 24px 80px rgba(0,0,0,.55),
+      0 8px 24px rgba(0,0,0,.40),
+      inset 0 1px 0 rgba(242,236,226,.06);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    padding:44px 44px 40px;
+    animation:cardIn .9s cubic-bezier(.2,.75,.2,1) both;
+  }
+  @keyframes cardIn {
+    from { opacity:0; transform:translateY(28px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* seal */
+  .seal-row {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .seal {
+    width:36px;
+    height:36px;
+    background:#a3392c;
+    color:#f6ead5;
+    font-family:var(--mincho);
+    font-size:12px;
+    line-height:1.02;
+    border-radius:2px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    box-shadow:inset 0 0 0 2px rgba(246,234,213,.18), 0 2px 12px rgba(163,57,44,.4);
+    flex:none;
+  }
+  .seal-label {
+    font-family:var(--serif);
+    font-size:22px;
+    letter-spacing:.02em;
+  }
+  .seal-label i {
+    font-style:normal;
+    font-family:var(--mincho);
+    font-size:14px;
+    margin-left:8px;
+    opacity:.68;
+    letter-spacing:.08em;
+  }
+
+  /* eyebrow */
+  .eyebrow {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:10px;
+    font-size:10.5px;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:rgba(200,97,26,.90);
+  }
+  .eyebrow s {
+    display:block;
+    width:28px;
+    height:1px;
+    background:rgba(200,97,26,.48);
+    text-decoration:none;
+  }
+
+  /* heading */
+  .card h1 {
+    font-family:var(--serif);
+    font-size:clamp(30px,5vw,44px);
+    line-height:.92;
+    letter-spacing:-.016em;
+    margin-bottom:8px;
+    font-weight:normal;
+  }
+  .card .sub {
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:15px;
+    color:rgba(242,236,226,.58);
+    margin-bottom:34px;
+    line-height:1.4;
+  }
+
+  /* form */
+  .field {
+    display:grid;
+    gap:6px;
+    margin-bottom:20px;
+  }
+  .field:last-of-type { margin-bottom:28px; }
+  .field label {
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:rgba(242,236,226,.52);
+  }
+  .field input {
+    width:100%;
+    font:normal 15px/1.4 var(--sans);
+    color:var(--ink);
+    background:transparent;
+    border:0;
+    border-bottom:1px solid rgba(242,236,226,.18);
+    padding:10px 0;
+    outline:none;
+    border-radius:0;
+    -webkit-appearance:none;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input::placeholder { color:rgba(242,236,226,.28); }
+  .field input:focus {
+    border-bottom-color:#c8611a;
+    box-shadow:0 1px 0 #c8611a;
+  }
+
+  /* forgot */
+  .forgot {
+    display:flex;
+    justify-content:flex-end;
+    margin-top:-14px;
+    margin-bottom:28px;
+  }
+  .forgot a {
+    font-size:11px;
+    letter-spacing:.08em;
+    color:rgba(242,236,226,.40);
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .forgot a:hover { color:var(--dim); }
+
+  /* submit */
+  .btn-submit {
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    background:#9d382c;
+    color:#faf2e3;
+    border:1px solid rgba(79,18,13,.20);
+    border-radius:2px;
+    padding:15px 22px 16px;
+    font:normal 11.5px/1 var(--sans);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background .2s ease, transform .15s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .btn-submit::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 60%);
+    pointer-events:none;
+  }
+  .btn-submit:hover { background:#812d23; }
+  .btn-submit:active { transform:translateY(1px); }
+  .btn-submit .arrow {
+    font-size:18px;
+    font-weight:normal;
+    line-height:1;
+    transition:transform .2s;
+  }
+  .btn-submit:hover .arrow { transform:translateX(3px); }
+
+  /* divider */
+  .divider {
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin:28px 0;
+    font-size:10.5px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:rgba(242,236,226,.28);
+  }
+  .divider::before, .divider::after {
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--hair);
+  }
+
+  /* guest btn */
+  .btn-ghost {
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:transparent;
+    border:1px solid rgba(242,236,226,.12);
+    border-radius:2px;
+    color:var(--dim);
+    padding:13px 22px 14px;
+    font:normal 11.5px/1 var(--sans);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:border-color .2s, color .2s, background .2s;
+  }
+  .btn-ghost:hover {
+    border-color:rgba(242,236,226,.26);
+    color:var(--ink);
+    background:rgba(242,236,226,.04);
+  }
+
+  /* footer note */
+  .note {
+    margin-top:28px;
+    text-align:center;
+    font-size:11px;
+    letter-spacing:.06em;
+    color:rgba(242,236,226,.32);
+  }
+  .note a {
+    color:rgba(200,97,26,.72);
+    text-decoration:none;
+    transition:color .2s;
+  }
+  .note a:hover { color:#c8611a; }
+
+  /* ——— Ambient sparks ——— */
+  .spark {
+    position:fixed;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#c8611a;
+    box-shadow:0 0 6px 2px rgba(200,97,26,.6);
+    pointer-events:none;
+    z-index:2;
+    animation:sparkFloat linear both;
+    will-change:transform,opacity;
+  }
+  @keyframes sparkFloat {
+    from { transform:translate(0, 0) scale(1); opacity:.8; }
+    to   { transform:translate(var(--sx), var(--sy)) scale(.2); opacity:0; }
+  }
+
+  /* ——— Volume indicator bottom-left ——— */
+  .vol {
+    position:fixed;
+    left:28px;
+    bottom:26px;
+    z-index:10;
+    font-size:10.5px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--dim);
+    opacity:.55;
+  }
+  .vol span {
+    display:block;
+    margin-top:5px;
+    font-family:var(--mincho);
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:none;
+    opacity:.65;
+  }
+
+  /* ——— Kibori link bottom-right ——— */
+  .scene-link {
+    position:fixed;
+    right:28px;
+    bottom:26px;
+    z-index:10;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--dim);
+    opacity:.55;
+    text-decoration:none;
+    transition:opacity .2s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .scene-link::before {
+    content:"";
+    width:18px;
+    height:1px;
+    background:var(--hair);
+  }
+  .scene-link:hover { opacity:1; }
+
+  /* ——— Status message ——— */
+  #status {
+    min-height:18px;
+    margin-top:16px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:14px;
+    color:rgba(242,236,226,.60);
+    text-align:center;
+    transition:opacity .3s;
+  }
+  #status.error { color:#c8611a; }
+  #status.success { color:#a3c882; }
+
+  /* responsive */
+  @media (max-width:480px) {
+    .card { padding:34px 26px 32px; }
+    .bar { padding:0 20px; }
+    .vol, .scene-link { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient fire canvas -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- Texture overlays -->
+<div class="grain" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+<div class="shoji" aria-hidden="true"></div>
+
+<!-- Top bar -->
+<header class="bar">
+  <a class="brand" href="/" aria-label="KIBORI — 3D Cyber Arena">KIBORI<i>GAMING</i></a>
+  <div class="right">
+    <span>Vol. 01</span>
+    <a href="/">Game Arena</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="stage">
+  <div class="card" role="main">
+    <div class="seal-row">
+      <div class="seal" aria-hidden="true">🎮</div>
+      <div class="seal-label">KIBORI<i>GAMING</i></div>
+    </div>
+
+    <div class="eyebrow"><s aria-hidden="true"></s>Player Portal</div>
+    <h1>Sign in</h1>
+    <p class="sub">Welcome back to the cyber arena</p>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email"
+               placeholder="player@kibori.gg" required>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password"
+               placeholder="Your passphrase" required>
+      </div>
+
+      <div class="forgot"><a href="#forgot">Forgot password?</a></div>
+
+      <button type="submit" class="btn-submit" id="btn-signin">
+        <span>Enter the Arena</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </button>
+
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="divider">or</div>
+
+    <button class="btn-ghost" id="btn-guest" type="button">
+      <span>Continue as guest</span>
+      <span aria-hidden="true">→</span>
+    </button>
+
+    <p class="note">No account? <a href="#register">Create player account</a></p>
+  </div>
+</main>
+
+<!-- Bottom chrome -->
+<div class="vol" aria-hidden="true">Vol. 01 — Cyber Edition<span>GAMING HUB</span></div>
+<a class="scene-link" href="/" aria-label="Enter the Game Arena">Play Games</a>
+
+<script>
+/* ====================================================================
+   Ambient fire particle system — WebGL 2D
+   Warm embers rise from the bottom of the screen
+==================================================================== */
+(function(){
+  const cv = document.getElementById('bg-canvas');
+  let gl, prog, buf, uRes, uTime, uT0;
+  const t0 = performance.now();
+
+  const VS = `
+    attribute vec2 aPos;
+    void main(){ gl_Position = vec4(aPos, 0.0, 1.0); }
+  `;
+  const FS = `
+    precision mediump float;
+    uniform vec2 uRes;
+    uniform float uTime;
+
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7)))*43758.5453); }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      f = f*f*(3.0-2.0*f);
+      float a=hash(i), b=hash(i+vec2(1,0)), c=hash(i+vec2(0,1)), d=hash(i+vec2(1,1));
+      return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
+    }
+
+    void main(){
+      vec2 uv = gl_FragCoord.xy / uRes;
+      float t = uTime;
+
+      /* wood grain — subtle horizontal bands */
+      float grain = 0.0;
+      for(int i=0;i<4;i++){
+        float fi = float(i);
+        grain += noise(vec2(uv.x*2.5 + fi*0.7, uv.y*18.0 + fi*3.1 - t*0.04*(fi+1.0))) * (0.5/pow(2.0,fi));
+      }
+      grain = grain * 0.5 + 0.5;
+
+      /* ember glow — rises from bottom */
+      float embers = 0.0;
+      for(int j=0;j<6;j++){
+        float fj = float(j);
+        vec2 seed = vec2(fj*0.17 + 0.3, fj*0.31 + 0.1);
+        float px = noise(seed + vec2(t*0.08*(fj*0.4+0.6), 0.0));
+        float py = fract(t*0.08*(fj*0.3+0.5) + seed.y);
+        float dx = uv.x - px, dy = uv.y - (1.0 - py);
+        float r = sqrt(dx*dx + dy*dy);
+        float brightness = smoothstep(0.12, 0.0, r) * (1.0 - py) * 0.5;
+        embers += brightness;
+      }
+
+      /* cyber dark grid base */
+      vec3 cyberBase = mix(vec3(0.02, 0.03, 0.08), vec3(0.05, 0.07, 0.16), grain);
+      /* neon cyber particle overlay */
+      vec3 neonPulse = mix(vec3(0.02, 0.55, 0.85), vec3(0.65, 0.20, 0.95), min(embers*2.0, 1.0));
+      vec3 col = mix(cyberBase, neonPulse, min(embers*1.8, 0.9));
+
+      /* vignette */
+      float vig = 1.0 - smoothstep(0.45, 1.1, length((uv - 0.5)*vec2(1.0, 0.9)));
+      col *= 0.85 + 0.15*vig;
+
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `;
+
+  function init(){
+    try {
+      gl = cv.getContext('webgl', {antialias:false, alpha:false, depth:false});
+      if(!gl) return;
+      const sh = (t,s) => { const o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o); return o; };
+      prog = gl.createProgram();
+      gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS));
+      gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+      gl.bindAttribLocation(prog, 0, 'aPos');
+      gl.linkProgram(prog);
+      if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+      gl.useProgram(prog);
+      buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      uRes  = gl.getUniformLocation(prog, 'uRes');
+      uTime = gl.getUniformLocation(prog, 'uTime');
+      resize();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(frame);
+    } catch(e){}
+  }
+
+  function resize(){
+    const dpr = Math.min(devicePixelRatio||1, 1.5);
+    const w = Math.round(innerWidth*dpr), h = Math.round(innerHeight*dpr);
+    if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; if(gl) gl.viewport(0,0,w,h); }
+  }
+
+  function frame(now){
+    if(!gl) return;
+    const t = (now - t0) / 1000;
+    gl.uniform2f(uRes, cv.width, cv.height);
+    gl.uniform1f(uTime, t);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    requestAnimationFrame(frame);
+  }
+
+  init();
+})();
+
+/* ====================================================================
+   Floating ember sparks (DOM-based, no canvas needed)
+==================================================================== */
+(function(){
+  const NUM = 14;
+  for(let i=0;i<NUM;i++) spawnSpark(Math.random()*4000);
+
+  function spawnSpark(delay){
+    const s = document.createElement('div');
+    s.className = 'spark';
+    const x = 10 + Math.random()*80; // vw
+    const dx = (Math.random()-0.5)*14; // vw drift
+    const dy = -(30 + Math.random()*55); // vh rise
+    const dur = 2.5 + Math.random()*3.5;
+    s.style.cssText = `
+      left:${x}vw;
+      bottom:${4+Math.random()*8}vh;
+      --sx:${dx}vw;
+      --sy:${dy}vh;
+      animation-duration:${dur}s;
+      animation-delay:${delay}ms;
+      width:${1+Math.random()*2}px;
+      height:${1+Math.random()*2}px;
+      opacity:${.4+Math.random()*.6};
+    `;
+    document.body.appendChild(s);
+    s.addEventListener('animationend', () => {
+      s.remove();
+      spawnSpark(0);
+    }, {once:true});
+  }
+})();
+
+/* ====================================================================
+   Login form behaviour
+==================================================================== */
+(function(){
+  const form   = document.getElementById('login-form');
+  const status = document.getElementById('status');
+  const btn    = document.getElementById('btn-signin');
+  const guest  = document.getElementById('btn-guest');
+
+  function setStatus(msg, type=''){
+    status.textContent = msg;
+    status.className = type;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email    = form.email.value.trim();
+    const password = form.password.value;
+
+    if(!email || !password){
+      setStatus('Please fill in all fields.', 'error'); return;
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      setStatus('Please enter a valid email address.', 'error'); return;
+    }
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Opening the workshop…';
+    setStatus('Verifying credentials…');
+
+    /* Simulate async auth — replace with real auth call */
+    await new Promise(r => setTimeout(r, 1400));
+
+    setStatus('Welcome back. Opening the workshop…', 'success');
+    setTimeout(() => {
+      /* On success: redirect to the main app */
+      window.location.href = '/';
+    }, 900);
+  });
+
+  guest.addEventListener('click', () => {
+    setStatus('Entering as guest…');
+    setTimeout(() => { window.location.href = '/'; }, 600);
+  });
+})();
+</script>
+</body>
+</html>

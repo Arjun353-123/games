@@ -5,11 +5,21 @@
     --font-heading: 'Outfit', sans-serif;
     --font-retro: 'Press Start 2P', cursive;
     --font-kids: 'Fredoka', cursive;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-mincho: 'Shippori Mincho', serif;
+    --kibori-bg: #070913;
+    --kibori-charcoal: #0c1022;
+    --kibori-cyber: #131b38;
+    --kibori-ember: #06b6d4;
+    --kibori-gold: #a855f7;
+    --kibori-ink: #f8fafc;
   }
 
   body {
     font-family: var(--font-heading);
     touch-action: manipulation;
+    background-color: #070913;
+    color: #f8fafc;
   }
 }
 
@@ -19,22 +29,36 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #0a0806;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(180deg, #c8611a, #e5a93b);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #60a5fa, #a78bfa);
+  background: linear-gradient(180deg, #ea580c, #f59e0b);
+}
+
+/* Kibori Masterwork Panels */
+.kibori-panel {
+  background: rgba(18, 14, 10, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(242, 236, 226, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(242, 236, 226, 0.06);
+}
+
+.kibori-panel-glow {
+  border-color: rgba(200, 97, 26, 0.35);
+  box-shadow: 0 0 35px rgba(200, 97, 26, 0.15), inset 0 1px 0 rgba(229, 169, 59, 0.2);
 }
 
 /* Glass Panels */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(18, 14, 10, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(242, 236, 226, 0.12);
 }
 
 .glass-panel-kids {

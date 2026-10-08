@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function BackgroundMedia({ bgType = '3d-particles', mode = 'college' }) {
+export default function BackgroundMedia({ bgType = 'kibori', mode = 'college' }) {
   const canvasRef = useRef(null);
   const videoCanvasRef = useRef(null);
+  const kiboriCanvasRef = useRef(null);
 
   const isKidsMode = mode === 'kids';
   const isNoirMode = mode === 'noir';
@@ -213,8 +214,120 @@ export default function BackgroundMedia({ bgType = '3d-particles', mode = 'colle
     };
   }, [bgType, mode, isKidsMode, isNoirMode]);
 
+  // 3. Kibori 3D Cyber Arena & Neon Pulse Scene
+  useEffect(() => {
+    if (bgType !== 'kibori') return;
+    const canvas = kiboriCanvasRef.current;
+    if (!canvas) return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 25;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const count = 900;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+    const speeds = new Float32Array(count);
+
+    const cyberGamingPalette = [
+      new THREE.Color('#06b6d4'),
+      new THREE.Color('#38bdf8'),
+      new THREE.Color('#a855f7'),
+      new THREE.Color('#f43f5e'),
+      new THREE.Color('#fbbf24'),
+      new THREE.Color('#10b981')
+    ];
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 60;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+
+      const col = cyberGamingPalette[Math.floor(Math.random() * cyberGamingPalette.length)];
+      colors[i * 3] = col.r;
+      colors[i * 3 + 1] = col.g;
+      colors[i * 3 + 2] = col.b;
+
+      speeds[i] = Math.random() * 0.08 + 0.03;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.45,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    const onMouseMove = (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.008;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.008;
+    };
+    window.addEventListener('mousemove', onMouseMove);
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', onResize);
+
+    let animId;
+    let time = 0;
+    const animate = () => {
+      animId = requestAnimationFrame(animate);
+      time += 0.015;
+      const pos = geometry.attributes.position.array;
+      for (let i = 0; i < count; i++) {
+        pos[i * 3 + 1] += speeds[i];
+        pos[i * 3] += Math.sin(time + i) * 0.02;
+        if (pos[i * 3 + 1] > 25) {
+          pos[i * 3 + 1] = -25;
+          pos[i * 3] = (Math.random() - 0.5) * 60;
+        }
+      }
+      geometry.attributes.position.needsUpdate = true;
+
+      particles.position.x += (mouseX - particles.position.x) * 0.05;
+      particles.position.y += (-mouseY - particles.position.y) * 0.05;
+
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('resize', onResize);
+      renderer.dispose();
+      geometry.dispose();
+      material.dispose();
+    };
+  }, [bgType]);
+
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      {bgType === 'kibori' && (
+        <div className="w-full h-full relative overflow-hidden bg-[#060814]">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(6,182,212,0.22)_0%,transparent_75%)] z-10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.18)_0%,transparent_60%)] z-10" />
+          <canvas ref={kiboriCanvasRef} className="w-full h-full block relative z-20" />
+        </div>
+      )}
+
       {bgType === '3d-particles' && (
         <canvas ref={canvasRef} className="w-full h-full block" />
       )}

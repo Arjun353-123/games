@@ -20,7 +20,7 @@ export default function SettingsModal({ isOpen, onClose, settings, onUpdateSetti
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
         onClick={onClose}
       >
         <motion.div
@@ -29,105 +29,171 @@ export default function SettingsModal({ isOpen, onClose, settings, onUpdateSetti
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           onClick={(e) => e.stopPropagation()}
           className={`max-w-md w-full p-6 rounded-3xl border shadow-2xl relative ${
-            isNoirMode ? 'glass-panel-noir border-white/40' : isKidsMode ? 'glass-panel-kids border-pink-300' : 'glass-panel border-cyan-400/30'
+            isNoirMode
+              ? 'glass-panel-noir border-white/40'
+              : isKidsMode
+              ? 'glass-panel-kids border-pink-300'
+              : 'bg-[#0a0f24]/95 border-cyan-500/35 shadow-[0_20px_60px_rgba(6,182,212,0.25)] text-slate-100 backdrop-blur-xl'
           }`}
         >
           <button
             onClick={() => { soundFx.playClick(); onClose(); }}
-            className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full bg-slate-800/60 transition-colors"
+            className={`absolute top-4 right-4 p-2 rounded-full transition-colors ${
+              isNoirMode
+                ? 'text-white/60 hover:text-white bg-white/10'
+                : isKidsMode
+                ? 'text-slate-400 hover:text-slate-800 bg-pink-100'
+                : 'text-slate-400 hover:text-white bg-white/5 hover:bg-white/15'
+            }`}
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="flex items-center gap-3 mb-6">
             <div className={`p-3 rounded-2xl border ${
-              isNoirMode ? 'bg-white/10 border-white/30 text-white' : 'bg-cyan-500/20 text-cyan-400 border-cyan-400/30'
+              isNoirMode
+                ? 'bg-white/10 border-white/30 text-white'
+                : isKidsMode
+                ? 'bg-pink-100 border-pink-300 text-pink-600'
+                : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400'
             }`}>
               <Settings className="w-6 h-6" />
             </div>
             <div>
-              <h3 className={`text-xl font-extrabold ${isKidsMode ? 'text-slate-800' : 'text-white'}`}>Settings</h3>
-              <p className="text-xs text-slate-400">Customize your arcade experience</p>
+              <div className="flex items-center gap-2">
+                <h3 className={`text-xl font-black ${
+                  isKidsMode ? 'text-slate-800' : isNoirMode ? 'text-white' : 'font-heading text-white tracking-wide'
+                }`}>
+                  Gaming Settings
+                </h3>
+                {!isKidsMode && !isNoirMode && (
+                  <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/80 border border-cyan-500/40 px-2 py-0.5 rounded-full font-bold">
+                    SYSTEM
+                  </span>
+                )}
+              </div>
+              <p className={`text-xs ${isKidsMode ? 'text-slate-500' : isNoirMode ? 'text-zinc-400' : 'text-slate-400'}`}>
+                Configure your 3D arcade graphics & audio controls
+              </p>
             </div>
           </div>
 
           <div className="space-y-4">
-            {/* Background */}
+            {/* Background Theme */}
             <div>
-              <label className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                <Palette className="w-3.5 h-3.5" /> Background Theme
+              <label className={`flex items-center gap-2 text-xs font-bold uppercase tracking-wider mb-2 ${
+                isKidsMode ? 'text-slate-600' : isNoirMode ? 'text-zinc-400' : 'text-cyan-400'
+              }`}>
+                <Palette className="w-3.5 h-3.5" /> Background Canvas
               </label>
               <select
                 value={settings.bgType}
                 onChange={(e) => handleChange('bgType', e.target.value)}
-                className="w-full px-4 py-3 text-sm font-semibold rounded-2xl border outline-none cursor-pointer bg-slate-900/80 text-slate-200 border-white/10 hover:bg-slate-800"
+                className={`w-full px-4 py-3 text-sm font-semibold rounded-2xl border outline-none cursor-pointer ${
+                  isNoirMode
+                    ? 'bg-zinc-900 text-white border-white/20'
+                    : isKidsMode
+                    ? 'bg-white text-slate-800 border-pink-200'
+                    : 'bg-[#080d20] text-slate-100 border-cyan-500/40 focus:border-cyan-300'
+                }`}
               >
-                <option value="3d-particles">✨ 3D Particles</option>
-                <option value="cyber-video">🎬 Cyber Video</option>
-                <option value="matrix">💻 Matrix FX</option>
-                <option value="mesh">🌈 Mesh Gradient</option>
-                <option value="aurora">🌌 Aurora Waves</option>
+                <option value="kibori">🎮 Cyber Neon Arena (3D Live)</option>
+                <option value="3d-particles">✨ 3D Galaxy Particles</option>
+                <option value="cyber-video">🎬 Synthwave Video Tunnel</option>
+                <option value="matrix">💻 Cyber Matrix Rain</option>
+                <option value="mesh">🌈 Modern Gradient Mesh</option>
+                <option value="aurora">🌌 Northern Lights Aurora</option>
               </select>
             </div>
 
-            {/* Sound */}
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-white/10">
+            {/* Sound Effects */}
+            <div className={`flex items-center justify-between p-4 rounded-2xl border ${
+              isNoirMode
+                ? 'bg-zinc-900/60 border-white/10'
+                : isKidsMode
+                ? 'bg-white/70 border-pink-200'
+                : 'bg-[#080d20]/80 border-white/10'
+            }`}>
               <div className="flex items-center gap-3">
-                <Volume2 className="w-5 h-5 text-emerald-400" />
+                <Volume2 className={`w-5 h-5 ${isKidsMode ? 'text-pink-500' : isNoirMode ? 'text-white' : 'text-cyan-400'}`} />
                 <div>
-                  <p className="text-sm font-bold text-white">Sound Effects</p>
-                  <p className="text-xs text-slate-400">UI clicks & game audio</p>
+                  <p className={`text-sm font-bold ${isKidsMode ? 'text-slate-800' : 'text-white'}`}>Sound Effects & SFX</p>
+                  <p className="text-xs text-slate-400">Arcade clicks, power-ups & game audio</p>
                 </div>
               </div>
               <button
                 onClick={() => handleChange('sound', !settings.sound)}
                 className={`w-12 h-7 rounded-full transition-colors relative ${
-                  settings.sound ? 'bg-emerald-500' : 'bg-slate-700'
+                  settings.sound
+                    ? isNoirMode ? 'bg-white' : isKidsMode ? 'bg-pink-500' : 'bg-cyan-500'
+                    : 'bg-zinc-800'
                 }`}
               >
-                <span className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+                <span className={`absolute top-1 w-5 h-5 rounded-full ${
+                  settings.sound && isNoirMode ? 'bg-black' : 'bg-white'
+                } shadow transition-transform ${
                   settings.sound ? 'left-6' : 'left-1'
                 }`} />
               </button>
             </div>
 
-            {/* Reduce motion */}
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-white/10">
+            {/* Reduce Motion */}
+            <div className={`flex items-center justify-between p-4 rounded-2xl border ${
+              isNoirMode
+                ? 'bg-zinc-900/60 border-white/10'
+                : isKidsMode
+                ? 'bg-white/70 border-pink-200'
+                : 'bg-[#080d20]/80 border-white/10'
+            }`}>
               <div className="flex items-center gap-3">
-                <Sparkles className="w-5 h-5 text-purple-400" />
+                <Sparkles className={`w-5 h-5 ${isKidsMode ? 'text-purple-500' : isNoirMode ? 'text-white' : 'text-purple-400'}`} />
                 <div>
-                  <p className="text-sm font-bold text-white">Reduce Motion</p>
-                  <p className="text-xs text-slate-400">Less animations for comfort</p>
+                  <p className={`text-sm font-bold ${isKidsMode ? 'text-slate-800' : 'text-white'}`}>Reduce Motion</p>
+                  <p className="text-xs text-slate-400">Minimal animations for comfort</p>
                 </div>
               </div>
               <button
                 onClick={() => handleChange('reduceMotion', !settings.reduceMotion)}
                 className={`w-12 h-7 rounded-full transition-colors relative ${
-                  settings.reduceMotion ? 'bg-purple-500' : 'bg-slate-700'
+                  settings.reduceMotion
+                    ? isNoirMode ? 'bg-white' : isKidsMode ? 'bg-pink-500' : 'bg-purple-500'
+                    : 'bg-zinc-800'
                 }`}
               >
-                <span className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+                <span className={`absolute top-1 w-5 h-5 rounded-full ${
+                  settings.reduceMotion && isNoirMode ? 'bg-black' : 'bg-white'
+                } shadow transition-transform ${
                   settings.reduceMotion ? 'left-6' : 'left-1'
                 }`} />
               </button>
             </div>
 
-            {/* Show particles on cards */}
-            <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-white/10">
+            {/* Card Glow Effects */}
+            <div className={`flex items-center justify-between p-4 rounded-2xl border ${
+              isNoirMode
+                ? 'bg-zinc-900/60 border-white/10'
+                : isKidsMode
+                ? 'bg-white/70 border-pink-200'
+                : 'bg-[#080d20]/80 border-white/10'
+            }`}>
               <div className="flex items-center gap-3">
-                <Zap className="w-5 h-5 text-amber-400" />
+                <Zap className={`w-5 h-5 ${isKidsMode ? 'text-amber-500' : isNoirMode ? 'text-white' : 'text-amber-400'}`} />
                 <div>
-                  <p className="text-sm font-bold text-white">Card Glow Effects</p>
-                  <p className="text-xs text-slate-400">Animated borders on game cards</p>
+                  <p className={`text-sm font-bold ${isKidsMode ? 'text-slate-800' : 'text-white'}`}>Neon Card Glow</p>
+                  <p className="text-xs text-slate-400">Cyber edge illumination on game cards</p>
                 </div>
               </div>
               <button
                 onClick={() => handleChange('cardGlow', settings.cardGlow !== false ? false : true)}
                 className={`w-12 h-7 rounded-full transition-colors relative ${
-                  settings.cardGlow !== false ? 'bg-amber-500' : 'bg-slate-700'
+                  settings.cardGlow !== false
+                    ? isNoirMode ? 'bg-white' : isKidsMode ? 'bg-pink-500' : 'bg-amber-400'
+                    : 'bg-zinc-800'
                 }`}
               >
-                <span className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+                <span className={`absolute top-1 w-5 h-5 rounded-full ${
+                  settings.cardGlow !== false && isNoirMode ? 'bg-black' : 'bg-white'
+                } shadow transition-transform ${
                   settings.cardGlow !== false ? 'left-6' : 'left-1'
                 }`} />
               </button>
@@ -136,9 +202,15 @@ export default function SettingsModal({ isOpen, onClose, settings, onUpdateSetti
 
           <button
             onClick={() => { soundFx.playClick(); onClose(); }}
-            className="w-full mt-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-2xl font-bold text-sm transition-all"
+            className={`w-full mt-6 py-3.5 rounded-2xl font-black text-sm transition-all shadow-lg cursor-pointer ${
+              isNoirMode
+                ? 'bg-white text-black hover:bg-neutral-200'
+                : isKidsMode
+                ? 'bg-gradient-to-r from-pink-500 to-amber-500 text-white'
+                : 'bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 text-white font-extrabold hover:brightness-110 shadow-[0_4px_20px_rgba(6,182,212,0.35)]'
+            }`}
           >
-            Done
+            SAVE & CLOSE
           </button>
         </motion.div>
       </motion.div>

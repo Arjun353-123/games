@@ -13,6 +13,7 @@ export default function Navbar({
   onOpenHighScores,
   onOpenSettings,
   onOpenAchievements,
+  onOpenKibori,
   achievementCount = 0,
 }) {
   const toggleFullscreen = () => {
@@ -31,11 +32,17 @@ export default function Navbar({
 
   const btnBase = isNoirMode
     ? 'bg-zinc-900 text-white border-white/30 hover:bg-zinc-800'
-    : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800';
+    : isKidsMode
+    ? 'bg-white text-slate-700 border-pink-200 hover:bg-pink-50'
+    : 'bg-[#0f152a]/90 text-slate-200 border-cyan-500/30 hover:border-cyan-400 hover:bg-[#182042] shadow-sm';
 
   return (
     <header className={`relative z-30 w-full px-4 py-3 border-b backdrop-blur-xl transition-colors duration-300 flex justify-between items-center ${
-      isNoirMode ? 'bg-black/90 border-white/20' : 'bg-slate-950/75 border-white/10'
+      isNoirMode
+        ? 'bg-black/90 border-white/20'
+        : isKidsMode
+        ? 'bg-white/85 border-pink-200'
+        : 'bg-[#070a16]/92 border-cyan-500/20 shadow-[0_4px_25px_rgba(0,0,0,0.8)]'
     }`}>
       <Logo mode={mode} />
 
@@ -48,38 +55,60 @@ export default function Navbar({
               ? 'bg-gradient-to-r from-amber-400 to-pink-400 text-slate-900 border-amber-300 hover:brightness-105'
               : isNoirMode
               ? 'bg-gradient-to-r from-neutral-800 to-zinc-900 text-white border-white/50 hover:border-white shadow-[0_0_15px_rgba(255,255,255,0.3)]'
-              : 'bg-gradient-to-r from-indigo-900/80 to-purple-900/80 text-purple-200 border-purple-500/40 hover:border-purple-400'
+              : 'bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white border-cyan-400 hover:brightness-110 shadow-[0_0_20px_rgba(6,182,212,0.4)]'
           }`}
           title="Switch Theme Mode"
         >
-          {isKidsMode ? <Sparkles className="w-4 h-4" /> : isNoirMode ? <Moon className="w-4 h-4" /> : <Flame className="w-4 h-4" />}
-          <span className="hidden sm:inline">{isKidsMode ? 'KIDS 🎨' : isNoirMode ? 'NOIR 🖤' : 'COLLEGE ⚡'}</span>
+          {isKidsMode ? <Sparkles className="w-4 h-4" /> : isNoirMode ? <Moon className="w-4 h-4" /> : <Gamepad2 className="w-4 h-4" />}
+          <span className="hidden sm:inline">{isKidsMode ? 'KIDS 🎨' : isNoirMode ? 'NOIR 🖤' : 'KIBORI 🎮'}</span>
         </button>
 
-        {/* Background Selector */}
+        {/* Background Canvas Selector */}
         <div className="relative hidden md:block">
           <select
             value={bgType}
             onChange={(e) => onChangeBgType(e.target.value)}
             className={`px-3 py-2 text-xs font-semibold rounded-2xl border outline-none cursor-pointer ${btnBase}`}
           >
-            <option value="3d-particles">✨ Particles</option>
-            <option value="cyber-video">🎬 Cyber</option>
-            <option value="matrix">💻 Matrix</option>
-            <option value="mesh">🌈 Mesh</option>
-            <option value="aurora">🌌 Aurora</option>
+            <option value="kibori">🎮 Cyber Neon Arena</option>
+            <option value="3d-particles">✨ 3D Galaxy Particles</option>
+            <option value="cyber-video">🎬 Synthwave Tunnel</option>
+            <option value="matrix">💻 Cyber Matrix Rain</option>
+            <option value="mesh">🌈 Mesh Gradient</option>
+            <option value="aurora">🌌 Northern Aurora</option>
           </select>
         </div>
+
+        {/* 3D Gaming Stage Jump */}
+        <button
+          onClick={onOpenKibori}
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl border border-cyan-500/40 bg-gradient-to-r from-[#0c142b] to-[#121b3b] text-cyan-200 hover:border-cyan-300 text-xs font-bold transition-all shadow-md active:scale-95"
+          title="Open interactive 3D Gaming Stage"
+        >
+          <Gamepad2 className="w-4 h-4 text-cyan-400" />
+          <span>3D Game Arena</span>
+        </button>
+
+        {/* Login / Auth Page */}
+        <a
+          href="/login.html"
+          className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 text-white text-xs font-bold transition-all shadow-md active:scale-95"
+          title="Sign in to KIBORI Gaming Account"
+        >
+          <span>Sign In</span>
+        </a>
 
         {/* Achievements */}
         <button
           onClick={onOpenAchievements}
           className={`p-2.5 rounded-2xl border shadow-md active:scale-95 transition-all relative ${btnBase}`}
-          title="Achievements"
+          title="Gaming Achievements"
         >
-          <Award className="w-5 h-5 text-purple-400" />
+          <Award className={`w-5 h-5 ${isKidsMode ? 'text-pink-500' : isNoirMode ? 'text-white' : 'text-purple-400'}`} />
           {achievementCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-purple-500 text-white text-[9px] font-black rounded-full flex items-center justify-center">
+            <span className={`absolute -top-1 -right-1 w-4 h-4 text-[9px] font-black rounded-full flex items-center justify-center ${
+              isKidsMode ? 'bg-pink-500 text-white' : isNoirMode ? 'bg-white text-black' : 'bg-cyan-500 text-black font-mono'
+            }`}>
               {achievementCount}
             </span>
           )}
@@ -89,9 +118,9 @@ export default function Navbar({
         <button
           onClick={onOpenSettings}
           className={`p-2.5 rounded-2xl border shadow-md active:scale-95 transition-all ${btnBase}`}
-          title="Settings"
+          title="Gaming Settings"
         >
-          <Settings className="w-5 h-5 text-cyan-400" />
+          <Settings className={`w-5 h-5 ${isKidsMode ? 'text-purple-500' : isNoirMode ? 'text-white' : 'text-cyan-400'}`} />
         </button>
 
         {/* Sound */}
@@ -102,23 +131,23 @@ export default function Navbar({
           }`}
           title="Toggle Sound"
         >
-          {soundMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5 text-emerald-400" />}
+          {soundMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className={`w-5 h-5 ${isKidsMode ? 'text-emerald-500' : isNoirMode ? 'text-white' : 'text-emerald-400'}`} />}
         </button>
 
         {/* High Scores */}
         <button
           onClick={onOpenHighScores}
           className={`p-2.5 rounded-2xl border shadow-md active:scale-95 transition-all ${btnBase}`}
-          title="High Scores"
+          title="High Scores Leaderboard"
         >
-          <Trophy className="w-5 h-5 text-amber-400" />
+          <Trophy className={`w-5 h-5 ${isKidsMode ? 'text-amber-500' : isNoirMode ? 'text-white' : 'text-amber-400'}`} />
         </button>
 
         {/* Fullscreen */}
         <button
           onClick={toggleFullscreen}
           className={`p-2.5 rounded-2xl border shadow-md active:scale-95 transition-all hidden lg:block ${btnBase}`}
-          title="Fullscreen"
+          title="Fullscreen Mode"
         >
           <Maximize className="w-5 h-5" />
         </button>
