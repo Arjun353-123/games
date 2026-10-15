@@ -52,13 +52,13 @@ const GAME_CARDS = [
   },
   {
     id: 'viceCity',
-    title: 'VICE CITY 1986: 3D OPEN WORLD',
-    tag: 'OPEN WORLD',
-    badge: '3D OPEN WORLD',
+    title: 'GTA 3D: REAL WORLD (GTA 5 & 4)',
+    tag: 'GTA REAL WORLD',
+    badge: 'GTA 5 & 4 EDITION',
     category: 'openWorld',
     popular: true,
-    description: 'Miami 1986 open world! Hijack supercars, police cruisers & military tanks, evade 5-star police chases, complete missions, and blast heavy weapons with 80s synth radio!',
-    icon: '🌴',
+    description: 'Authentic GTA IV & V real-world experience! Hijack supercars, superbikes & attack helicopters, evade 5-star police chases with SWAT & air support, execute bank heists, sniper zooms & street races!',
+    icon: '⭐',
     scoreKey: 'viceCity',
   },
   {
@@ -561,7 +561,9 @@ export default function App() {
                     <div className="flex justify-between items-center mb-4 pr-8">
                       <div className="flex items-center gap-2">
                         <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wider ${
-                          isKidsMode
+                          game.id === 'viceCity'
+                            ? 'bg-white text-black border-2 border-white shadow-md font-black'
+                            : isKidsMode
                             ? 'bg-pink-100 text-pink-700'
                             : isNoirMode
                             ? 'bg-white/20 text-white border border-white/40'
@@ -570,7 +572,11 @@ export default function App() {
                           {game.badge}
                         </span>
                         {game.tag && !isKidsMode && (
-                          <span className="font-mono text-purple-300 text-[10px] font-bold tracking-wider select-none px-2 py-0.5 rounded bg-purple-950/60 border border-purple-500/30">
+                          <span className={`font-mono text-[10px] font-bold tracking-wider select-none px-2 py-0.5 rounded ${
+                            game.id === 'viceCity'
+                              ? 'bg-black text-white border border-white/80'
+                              : 'text-purple-300 bg-purple-950/60 border border-purple-500/30'
+                          }`}>
                             {game.tag}
                           </span>
                         )}
@@ -619,7 +625,9 @@ export default function App() {
                     </div>
 
                     <button className={`w-full py-3 rounded-2xl font-black text-sm shadow-lg flex items-center justify-center gap-2 ${
-                      isKidsMode
+                      game.id === 'viceCity'
+                        ? 'bg-black text-white border-2 border-white hover:bg-white hover:text-black shadow-[0_0_20px_rgba(255,255,255,0.4)]'
+                        : isKidsMode
                         ? `bg-gradient-to-r ${gradient} text-white`
                         : isNoirMode
                         ? 'bg-white text-black'

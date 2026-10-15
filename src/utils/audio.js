@@ -510,7 +510,190 @@ class SoundEngine {
     spray.start(now);
   }
 
-  startViceCityRadio(station = 'flashFm') {
+  playSniperZoom() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(300, now);
+    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.12);
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.12);
+  }
+
+  playReload() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    [600, 1100].forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+      gain.gain.setValueAtTime(0.15, now + idx * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.08 + 0.06);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now + idx * 0.08);
+      osc.stop(now + idx * 0.08 + 0.06);
+    });
+  }
+
+  playPoliceChatter() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    // Walkie talkie squelch tone
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(850, now);
+    osc.frequency.setValueAtTime(450, now + 0.05);
+    gain.gain.setValueAtTime(0.1, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.18);
+  }
+
+  playHeliRotor() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(45, now);
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  }
+
+  updateEngineSound(speedRatio = 0, isAccelerating = false, isNitro = false, rpm = 1000) {
+    if (this.muted) {
+      this.stopEngineSound();
+      return;
+    }
+    this.init();
+    if (!this.ctx) return;
+
+    if (!this.engineOsc) {
+      this.engineOsc = this.ctx.createOscillator();
+      this.engineOsc.type = 'sawtooth';
+
+      this.engineFilter = this.ctx.createBiquadFilter();
+      this.engineFilter.type = 'lowpass';
+      this.engineFilter.frequency.setValueAtTime(450, this.ctx.currentTime);
+
+      this.engineGain = this.ctx.createGain();
+      this.engineGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+
+      this.engineOsc.connect(this.engineFilter);
+      this.engineFilter.connect(this.engineGain);
+      this.engineGain.connect(this.ctx.destination);
+      this.engineOsc.start();
+    }
+
+    // Realistic RPM-based frequency
+    const rpmFactor = Math.min(1.0, Math.max(0, (rpm - 800) / 7500));
+    const baseFreq = 48 + rpmFactor * 220 + (isNitro ? 45 : 0);
+    const filterFreq = 260 + rpmFactor * 1400 + (isNitro ? 600 : 0);
+    const targetVolume = isAccelerating ? (isNitro ? 0.24 : 0.18) : 0.09;
+
+    this.engineOsc.frequency.setTargetAtTime(baseFreq, this.ctx.currentTime, 0.04);
+    this.engineFilter.frequency.setTargetAtTime(filterFreq, this.ctx.currentTime, 0.04);
+    this.engineGain.gain.setTargetAtTime(targetVolume, this.ctx.currentTime, 0.04);
+  }
+
+  stopEngineSound() {
+    if (this.engineOsc) {
+      try {
+        this.engineOsc.stop();
+        this.engineOsc.disconnect();
+      } catch (e) {}
+      this.engineOsc = null;
+      this.engineFilter = null;
+      this.engineGain = null;
+    }
+  }
+
+  playGearShift() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(140, now);
+    osc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.08);
+  }
+
+  playTurboBlowoff() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const bufferSize = this.ctx.sampleRate * 0.2;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.05));
+    }
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = buffer;
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(2200, now);
+    filter.Q.setValueAtTime(3.0, now);
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(0.18, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.ctx.destination);
+    noise.start(now);
+  }
+
+  playNitrousSound() {
+    if (this.muted) return;
+    this.init();
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(400, now);
+    osc.frequency.exponentialRampToValueAtTime(1400, now + 0.25);
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.25);
+  }
+
+  startViceCityRadio(station = 'radioLosSantos') {
     this.stopRadio();
     if (this.muted || station === 'off') return;
     this.init();
@@ -520,32 +703,45 @@ class SoundEngine {
     this.currentStation = station;
     let step = 0;
 
-    // 80s Synth chord progressions
+    // Real world GTA & Vice City inspired chord progressions
     const stationPatterns = {
-      flashFm: [
-        // A minor to F to C to G (classic upbeat synthwave)
-        [220, 261.63, 329.63], // Am
-        [174.61, 220, 261.63], // F
-        [130.81, 164.81, 196.00], // C
-        [196.00, 246.94, 293.66], // G
+      radioLosSantos: [
+        // Heavy West Coast Hip-Hop Bass & Synth Leads
+        [110.00, 146.83, 174.61], // Dm
+        [98.00, 130.81, 164.81],  // C
+        [87.31, 116.54, 146.83],  // Bb
+        [110.00, 146.83, 174.61], // Dm
       ],
-      wave103: [
-        // Dark moody new wave synth
-        [146.83, 220.00, 293.66], // Dm
-        [116.54, 174.61, 233.08], // Bb
-        [130.81, 196.00, 261.63], // C
-        [164.81, 246.94, 329.63], // Em
-      ],
-      vRock: [
-        // High energy driving rock riff
+      losSantosRock: [
+        // Classic Driving Rock Power Chords
         [164.81, 246.94, 329.63], // E5
-        [164.81, 246.94, 329.63],
+        [146.83, 220.00, 293.66], // D5
         [220.00, 329.63, 440.00], // A5
         [196.00, 293.66, 392.00], // G5
+      ],
+      nonStopPop: [
+        // Modern Electronic Pop Vibes
+        [261.63, 329.63, 392.00], // C
+        [196.00, 246.94, 293.66], // G
+        [220.00, 261.63, 329.63], // Am
+        [174.61, 220.00, 261.63], // F
+      ],
+      flashFm: [
+        // Classic 80s synthwave
+        [220, 261.63, 329.63],
+        [174.61, 220, 261.63],
+        [130.81, 164.81, 196.00],
+        [196.00, 246.94, 293.66],
+      ],
+      wave103: [
+        [146.83, 220.00, 293.66],
+        [116.54, 174.61, 233.08],
+        [130.81, 196.00, 261.63],
+        [164.81, 246.94, 329.63],
       ]
     };
 
-    const pattern = stationPatterns[station] || stationPatterns.flashFm;
+    const pattern = stationPatterns[station] || stationPatterns.radioLosSantos;
 
     this.radioInterval = setInterval(() => {
       if (this.muted || !this.radioPlaying || !this.ctx) return;
@@ -553,10 +749,10 @@ class SoundEngine {
       const chord = pattern[Math.floor(step / 2) % pattern.length];
       const rootFreq = chord[step % chord.length];
 
-      // Bass note
+      // Bass groove
       const bassOsc = this.ctx.createOscillator();
       const bassGain = this.ctx.createGain();
-      bassOsc.type = station === 'vRock' ? 'sawtooth' : 'triangle';
+      bassOsc.type = (station === 'losSantosRock') ? 'sawtooth' : 'triangle';
       bassOsc.frequency.setValueAtTime(chord[0] * 0.5, this.ctx.currentTime);
       bassGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
       bassGain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.22);
@@ -565,12 +761,12 @@ class SoundEngine {
       bassOsc.start();
       bassOsc.stop(this.ctx.currentTime + 0.22);
 
-      // Lead synth note
+      // Lead melodic note
       const leadOsc = this.ctx.createOscillator();
       const leadGain = this.ctx.createGain();
-      leadOsc.type = 'sawtooth';
-      leadOsc.frequency.setValueAtTime(rootFreq * (station === 'flashFm' ? 2 : 1), this.ctx.currentTime);
-      leadGain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+      leadOsc.type = (station === 'radioLosSantos') ? 'sine' : 'sawtooth';
+      leadOsc.frequency.setValueAtTime(rootFreq * (station === 'radioLosSantos' ? 2 : 1.5), this.ctx.currentTime);
+      leadGain.gain.setValueAtTime(0.045, this.ctx.currentTime);
       leadGain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
       leadOsc.connect(leadGain);
       leadGain.connect(this.ctx.destination);
@@ -578,7 +774,7 @@ class SoundEngine {
       leadOsc.stop(this.ctx.currentTime + 0.2);
 
       step++;
-    }, station === 'vRock' ? 180 : 220);
+    }, (station === 'losSantosRock') ? 180 : 210);
   }
 
   stopRadio() {
